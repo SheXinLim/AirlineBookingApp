@@ -1,0 +1,28 @@
+{% include 'top.html' %}
+
+<div id="content" class="scrollable">
+    
+    <h1 style="text-align: center;">Search for a Passenger</h1>
+
+    <div class="d-flex justify-content-between align-items-center mb-3 px-3">
+        <!-- Search Form -->
+        <form method="POST" action="{{ url_for('search_passenger_advanced') }}">
+            <label for="search_field">Select Field:</label>
+            <select id="search_field" name="search_field" required>
+                <option value="passengerid">Passenger ID</option>
+                <option value="firstname">First Name</option>
+                <option value="lastname">Last Name</option>
+                <option value="dateofbirth">Date of Birth</option>
+                <option value="nationality">Nationality</option>
+                <option value="passportnumber">Passport Number</option>
+            </select>
+
+            <label for="search_value">Enter Value:</label>
+            <input type="text" id="search_value" name="search_value" required>
+
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+</div>
+
+{% include 'end.html' %}

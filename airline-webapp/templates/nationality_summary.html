@@ -1,0 +1,23 @@
+{% include 'top.html' %}
+
+<div id="content" class="container my-4">
+    <h1>Passenger Nationality Summary</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nationality</th>
+                <th>Number of Passengers</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for nationality, count in summary %}
+            <tr>
+                <td>{{ nationality }}</td>
+                <td>{{ count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% include 'end.html' %}

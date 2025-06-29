@@ -1,0 +1,87 @@
+{% include 'top.html' %}
+
+<div id="content" class="scrollable">
+    <h1 style="text-align: center;">Passenger Ticket Summary</h1>
+
+    <div class="d-flex justify-content-between align-items-center mb-3 px-3">
+
+        <form method="POST" action="{{ url_for('search_passenger_by_id_route') }}">
+            <label for="passenger_id">Enter PassengerID:</label>
+            <input type="text" id="passenger_id" name="passenger_id" required>
+            <button type="submit">Search</button>
+        </form>
+        </div>
+    </div>
+
+    <!-- Pagination controls -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+    
+            <!-- "Previous" button -->
+            {% if page > 1 %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('passenger_ticket_summary', page=page-1) }}">Previous</a>
+            </li>
+            {% endif %}
+     
+            {% if start_page > 1 %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('passenger_ticket_summary', page=1) }}">1</a>
+            </li>
+            {% if start_page > 2 %}
+            <li class="page-item disabled"><span class="page-link">...</span></li>
+            {% endif %}
+            {% endif %}
+    
+            <!-- Loop through visible page numbers -->
+            {% for p in range(start_page, end_page + 1) %}
+            <li class="page-item {% if p == page %}active{% endif %}">
+                <a class="page-link" href="{{ url_for('passenger_ticket_summary', page=p) }}">{{ p }}</a>
+            </li>
+            {% endfor %}
+    
+            <!-- "..." and last page if necessary -->
+            {% if end_page < total_pages %}
+            {% if end_page < total_pages - 1 %}
+            <li class="page-item disabled"><span class="page-link">...</span></li>
+            {% endif %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('passenger_ticket_summary', page=total_pages) }}">{{ total_pages }}</a>
+            </li>
+            {% endif %}
+    
+            <!-- "Next" button -->
+            {% if page < total_pages %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('passenger_ticket_summary', page=page+1) }}">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    
+
+    <table class="table table-bordered px-3" style="width: 90%; border-spacing: 0; margin: 20px auto;">
+        <thead>
+            <tr>
+                <th>Passenger ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Ticket Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for passenger in passengers %}
+            <tr>
+                <td>{{ passenger.PassengerID }}</td>
+                <td>{{ passenger.FirstName }}</td>
+                <td>{{ passenger.LastName }}</td>
+                <td>{{ passenger.TicketCount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+</div>
+
+{% include 'end.html' %}

@@ -1,0 +1,52 @@
+{% include 'top.html' %}
+
+<div id="content" class="scrollable">
+    <h1 style="text-align: center;">Update Passenger Details</h1>
+
+    <div class="d-flex justify-content-center">
+        <form method="POST" action="{{ url_for('update_passenger', passenger_id=passenger.passengerid) }}" class="w-50"> 
+            
+            <div class="form-group">
+                <label for="passengerid">Passenger ID:</label>
+                <input type="number" id="passengerid" name="new_passenger_id" class="form-control" value="{{ passenger.passengerid }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="firstname">First Name:</label>
+                <input type="text" id="firstname" name="first_name" class="form-control" value="{{ passenger.firstname }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="lastname">Last Name:</label>
+                <input type="text" id="lastname" name="last_name" class="form-control" value="{{ passenger.lastname }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" class="form-control" value="{{ passenger.dateofbirth }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" class="form-control" required>
+                    <option value="M" {% if passenger.gender == 'M' %}selected{% endif %}>Male</option>
+                    <option value="F" {% if passenger.gender == 'F' %}selected{% endif %}>Female</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="nationality">Nationality:</label>
+                <input type="text" id="nationality" name="nationality" class="form-control" value="{{ passenger.nationality }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="passportnumber">Passport Number:</label>
+                <input type="text" id="passportnumber" name="passport_number" class="form-control" value="{{ passenger.passportnumber }}" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Update Passenger</button>
+        </form>
+    </div>
+</div>
+
+{% include 'end.html' %}

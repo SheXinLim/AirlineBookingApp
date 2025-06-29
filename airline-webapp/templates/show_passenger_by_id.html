@@ -1,0 +1,40 @@
+{% include 'top.html' %}
+
+<div id="content" class="scrollable">
+    
+    <h1 style="text-align: center;">Passenger Ticket Summary</h1>
+
+    <div class="d-flex justify-content-between align-items-center mb-3 px-3">
+        <form method="POST" action="{{ url_for('search_passenger_by_id_route') }}">
+            <label for="passenger_id">Enter PassengerID:</label>
+            <input type="text" id="passenger_id" name="passenger_id" required>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    
+    {% if passenger %}
+        <table class="table table-bordered px-3" style="width: 98%; border-spacing: 0; margin: 20px auto; border: 1px solid black;">
+            <thead>
+                <tr>
+                    <th>Passenger ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Ticket Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ passenger.PassengerID }}</td>  <!-- Passenger ID -->
+                    <td>{{ passenger.FirstName }}</td>  <!-- First Name -->
+                    <td>{{ passenger.LastName }}</td>  <!-- Last Name -->
+                    <td>{{ passenger.TicketCount }}</td>  <!-- Ticket Count -->
+                </tr>
+            </tbody>
+        </table>
+    {% else %}
+        <p>No passenger found with the provided ID.</p>
+    {% endif %}
+    
+</div>
+
+{% include 'end.html' %}

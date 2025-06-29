@@ -1,0 +1,53 @@
+{% include 'top.html' %}
+
+<div id="content" class="scrollable">
+    <h1 style="text-align: center;">Passenger Details</h1>
+
+    <table class="table table-bordered px-3" style="width: 98%; border-spacing: 0; margin: 20px auto; border: 1px;">
+        <thead>
+            <tr>
+                <th>Passenger ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Date of Birth</th>
+                <th>Gender</th>
+                <th>Nationality</th>
+                <th>Passport Number</th>
+                {% if session.isadmin %}
+                <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% if passengers|length > 0 %}
+                {% for passenger in passengers %}
+                <tr>
+                    <td>{{ passenger.passengerid }}</td>  <!-- Passenger ID -->
+                    <td>{{ passenger.firstname }}</td>  <!-- First Name -->
+                    <td>{{ passenger.lastname }}</td>  <!-- Last Name -->
+                    <td>{{ passenger.dateofbirth }}</td>  <!-- Date of Birth -->
+                    <td>{{ passenger.gender }}</td>  <!-- Gender -->
+                    <td>{{ passenger.nationality }}</td>  <!-- Nationality -->
+                    <td>{{ passenger.passportnumber }}</td>  <!-- Passport Number -->
+                    {% if session.isadmin %}
+                    <td>
+                        <form action="{{ url_for('delete_passenger', passenger_id=passenger.passengerid) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this passenger?');">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+
+                        <!-- Edit Button -->
+                        <a href="{{ url_for('update_passenger', passenger_id=passenger.passengerid) }}" class="btn btn-primary btn-sm">Edit</a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="8" style="text-align: center;">No passengers found.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+{% include 'end.html' %}
